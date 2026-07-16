@@ -1,0 +1,7 @@
+.git
+.venv
+**/__pycache__
+frontend/node_modules
+evals/results
+infra/terraform/.terraform
+docs/evidence/*.mp4

@@ -1,0 +1,10 @@
+project_id         = "your-dedicated-project"
+billing_account_id = "000000-000000-000000"
+region             = "us-central1"
+control_image      = "us-central1-docker.pkg.dev/your-project/agent-control-plane/control:sha"
+tool_image         = "us-central1-docker.pkg.dev/your-project/agent-control-plane/tools:sha"
+
+# Optional until Google sign-in is configured in Identity Platform.
+google_oauth_client_id     = ""
+google_oauth_client_secret = ""
+

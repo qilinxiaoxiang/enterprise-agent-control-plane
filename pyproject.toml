@@ -1,0 +1,74 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "enterprise-agent-control-plane"
+version = "0.1.0"
+description = "Reliability control plane for a synthetic regulated financial workflow"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = {text = "MIT"}
+authors = [{name = "Shawn Xiang"}]
+dependencies = [
+  "fastapi>=0.116,<1",
+  "google-auth>=2.40,<3",
+  "httpx>=0.28,<1",
+  "langchain-core>=1,<2",
+  "langchain-google-genai>=4,<5",
+  "langchain-postgres>=0.0.16,<1",
+  "langgraph>=1,<2",
+  "langgraph-checkpoint-postgres>=3,<4",
+  "mcp>=1.27,<2",
+  "opentelemetry-api>=1.38,<2",
+  "opentelemetry-distro>=0.59b0,<1",
+  "opentelemetry-exporter-otlp-proto-http>=1.38,<2",
+  "opentelemetry-exporter-gcp-trace>=1.9,<2",
+  "opentelemetry-instrumentation-fastapi>=0.59b0,<1",
+  "opentelemetry-instrumentation-httpx>=0.59b0,<1",
+  "psycopg[binary,pool]>=3.2,<4",
+  "pydantic>=2.11,<3",
+  "pydantic-settings>=2.10,<3",
+  "pyjwt[crypto]>=2.10,<3",
+  "sse-starlette>=3,<4",
+  "structlog>=25,<26",
+  "tenacity>=9,<10",
+  "uvicorn[standard]>=0.35,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.17,<2",
+  "pytest>=8.4,<9",
+  "pytest-asyncio>=1.1,<2",
+  "pytest-cov>=6.2,<7",
+  "ruff>=0.12,<1",
+]
+
+[project.scripts]
+control-api = "control_plane.main:run"
+control-eval = "control_plane.eval_harness:main"
+control-seed = "control_plane.seed:main"
+synthetic-tool-server = "tool_server.main:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/control_plane", "src/tool_server"]
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-markers --strict-config"
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = ["integration: requires local PostgreSQL/pgvector and MCP services"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["control_plane", "tool_server"]
+warn_unused_ignores = false

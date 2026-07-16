@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Release Evaluation</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; width: 1600px; height: 900px; color: #edf4ff; background: #07111f; overflow: hidden; }
+    main { width: 100%; height: 100%; padding: 62px 72px 54px; background:
+      radial-gradient(circle at 82% 15%, rgba(54,211,153,.12), transparent 28%),
+      radial-gradient(circle at 12% 86%, rgba(78,151,255,.14), transparent 31%); }
+    .eyebrow { color: #7fb3ff; text-transform: uppercase; letter-spacing: .18em; font-weight: 750; font-size: 18px; }
+    h1 { margin: 12px 0 8px; font-size: 52px; line-height: 1.05; letter-spacing: -.035em; }
+    .sub { margin: 0 0 34px; color: #9fb1c8; font-size: 21px; }
+    .grid { display: grid; grid-template-columns: 1.06fr .94fr; gap: 28px; height: 610px; }
+    .panel { border: 1px solid #263a55; background: rgba(12,27,47,.88); border-radius: 22px; padding: 30px; box-shadow: 0 18px 50px rgba(0,0,0,.22); }
+    .panel h2 { margin: 0 0 25px; font-size: 23px; letter-spacing: -.01em; color: #d9e7fa; }
+    .bars { display: grid; gap: 27px; }
+    .row { display: grid; grid-template-columns: 155px 1fr 70px; align-items: center; gap: 16px; }
+    .label { color: #bdcbe0; font-size: 19px; }
+    .track { height: 24px; background: #14243a; border-radius: 999px; overflow: hidden; position: relative; }
+    .bar { height: 100%; border-radius: inherit; }
+    .base { background: #f07c65; }
+    .control { background: linear-gradient(90deg, #35d39c, #65e1b5); }
+    .value { font-variant-numeric: tabular-nums; font-size: 20px; font-weight: 750; text-align: right; }
+    .divider { height: 1px; background: #243954; margin: 2px 0 0; }
+    .delta { margin-top: 32px; padding: 24px 26px; border-radius: 16px; background: #102b2c; border: 1px solid #24594d; }
+    .delta strong { display: block; font-size: 42px; color: #66e4b6; letter-spacing: -.03em; }
+    .delta span { color: #aed3c5; font-size: 18px; }
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card { min-height: 116px; padding: 20px; border: 1px solid #28405e; border-radius: 16px; background: #0d2037; }
+    .card .metric { color: #9eb2ca; font-size: 16px; min-height: 40px; }
+    .card .number { font-size: 31px; font-weight: 780; letter-spacing: -.025em; }
+    .card .gate { color: #64dcae; font-size: 14px; margin-top: 4px; }
+    .footer { display: flex; align-items: center; justify-content: space-between; margin-top: 22px; color: #7f94ad; font-size: 15px; }
+    .pass { display: inline-flex; gap: 10px; align-items: center; color: #7ce9bd; font-weight: 750; }
+    .dot { width: 11px; height: 11px; border-radius: 50%; background: #42d9a2; box-shadow: 0 0 16px #42d9a2; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Gemini 2.5 Flash · 120 versioned cases</div>
+  <h1>Controls turned agent failure into verified closure.</h1>
+  <p class="sub">Same model, tools, policies, and synthetic records. Only the reliability layer changed.</p>
+  <section class="grid">
+    <div class="panel">
+      <h2>Task success and transient recovery</h2>
+      <div class="bars">
+        <div class="row"><div class="label">Baseline success</div><div class="track"><div class="bar base" style="width:39.2%"></div></div><div class="value">39.2%</div></div>
+        <div class="row"><div class="label">Controlled</div><div class="track"><div class="bar control" style="width:100%"></div></div><div class="value">100%</div></div>
+        <div class="divider"></div>
+        <div class="row"><div class="label">Baseline recovery</div><div class="track"><div class="bar base" style="width:0%"></div></div><div class="value">0%</div></div>
+        <div class="row"><div class="label">Controlled</div><div class="track"><div class="bar control" style="width:100%"></div></div><div class="value">100%</div></div>
+      </div>
+      <div class="delta"><strong>+60.8 pp</strong><span>task-success improvement; measured failures reduced 100%</span></div>
+    </div>
+    <div class="panel">
+      <h2>Controlled release gates</h2>
+      <div class="cards">
+        <div class="card"><div class="metric">Unsafe / unauthorized writes</div><div class="number">0 / 0</div><div class="gate">Gate: zero</div></div>
+        <div class="card"><div class="metric">Tenant leaks / duplicate effects</div><div class="number">0 / 0</div><div class="gate">Gate: zero</div></div>
+        <div class="card"><div class="metric">p95 latency</div><div class="number">12.17 s</div><div class="gate">Gate: ≤15 s</div></div>
+        <div class="card"><div class="metric">Average model cost / case</div><div class="number">$0.00043</div><div class="gate">Gate: ≤$0.03</div></div>
+        <div class="card"><div class="metric">Unsupported claims</div><div class="number">0.0%</div><div class="gate">Gate: ≤2%</div></div>
+        <div class="card"><div class="metric">Policy recall@5</div><div class="number">100%</div><div class="gate">Gate: ≥90%</div></div>
+      </div>
+      <div class="footer"><span>Suite 2026-07-16.1 · thinking budget 0</span><span class="pass"><i class="dot"></i>10 / 10 gates passed</span></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
