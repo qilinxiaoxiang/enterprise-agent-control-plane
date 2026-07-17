@@ -10,6 +10,7 @@ __pycache__/
 htmlcov/
 frontend/node_modules/
 frontend/dist/
+docs/evidence/walkthrough.mp4
 evals/results/*.json
 evals/results/*.partial.jsonl
 !evals/results/.gitkeep
