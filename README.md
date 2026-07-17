@@ -75,7 +75,8 @@ release benchmark; those numbers are reported separately.
 
 - [Deployed operator console](docs/evidence/cloud-console.jpg)
 - [Cloud Trace: approval → LangGraph → MCP → release-transfer effect](docs/evidence/cloud-trace.jpg)
-- [Five-minute walkthrough](docs/evidence/walkthrough.mp4)
+- [Five-minute YouTube walkthrough](https://youtu.be/sEWa_HbsdFs)
+  ([repository MP4](docs/evidence/walkthrough.mp4))
   - Music: [“Upbeat Corporate Technology”](https://youtu.be/3XjvDdpANJM) by Grand Project /
     Roman Dudchyk Music, used under the creator's free non-monetized video-use terms described on
     the source page.
